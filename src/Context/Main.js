@@ -12,13 +12,14 @@ export const DashboardProvider = ({ children }) => {
 
   const [info, setInfo] = useState({ loading: true });
   const [boletoInfo, setBoletoInfo] = useState({ });
+  const [addAccountStatus, setAddAccountStatus] = useState({ });
   const [saldo, setSaldo] = useState({ loading: true });
-
+  
   async function getSaldo(data) {
     setSaldo({ loading: true });
 
     const response = await postCelcoin({
-      url: `https://sandbox.openfinance.celcoin.dev/baas-walletreports/v1/wallet/balance?Account=3004660672360`,
+      url: `https://sandbox.openfinance.celcoin.dev/baas-walletreports/v1/wallet/balance?Account=30054850018`,
       method: "GET"
     });
 
@@ -43,7 +44,7 @@ export const DashboardProvider = ({ children }) => {
     setInfo({ loading: true });
 
     const response = await postCelcoin({
-      url: `https://sandbox.openfinance.celcoin.dev/baas-accountmanager/v1/account/fetch?Account=3004660672360&DocumentNumber`,
+      url: `https://sandbox.openfinance.celcoin.dev/baas-accountmanager/v1/account/fetch?Account=30054850018&DocumentNumber`,
       method: "GET"
     });
 
@@ -96,12 +97,41 @@ export const DashboardProvider = ({ children }) => {
     }
   };
 
+  async function addAccount(payload) {
+    console.log('here', payload)
+    setAddAccountStatus({ loading: true });
+    
+    const response = await postCelcoin({
+      url: `https://sandbox.openfinance.celcoin.dev/onboarding/v1/onboarding-proposal/natural-person`,
+      method: "POST",
+      payload
+    });
+
+    if (response.error || !response.data) {
+      console.log('addAccount error: ', response)
+      if (response.errorType && response.errorType == 401) {
+        // navigation.navigate('logoff');
+      }
+
+      if (response && !response.success) {
+        setAddAccountStatus(response);
+      }
+    } else {
+        console.log('addAccount', response)
+        setAddAccountStatus({
+            success: true,
+            data: response.data,
+        });
+    }
+  };
+
 
   return (
     <DashboardContext.Provider value={{
       getSaldo, saldo,
       getInfo, info,
       getBoletoInfo, boletoInfo,
+      addAccount, addAccountStatus,
     }}>
       {children}
     </DashboardContext.Provider>

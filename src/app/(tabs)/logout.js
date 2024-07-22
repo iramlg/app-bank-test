@@ -1,11 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, useNavigation, useRouter } from "expo-router";
 
-export default function Dashboard() {
+export default function Logout() {
+    
+    const router = useRouter();
+
+    router.push("/")
+
   return (
     <View style={styles.container}>
-      <Text>Card</Text>
+      <Text></Text>
       <StatusBar style="auto" />
     </View>
   );

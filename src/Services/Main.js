@@ -1,7 +1,8 @@
 import axios from 'axios';
 // import { getData } from '../utils/token';
 
-const apiRoute = 'https://intense-journey-60943-94ecef839bd9.herokuapp.com'
+const apiRoute = 'http://localhost:3000'
+// const apiRoute = 'https://intense-journey-60943-94ecef839bd9.herokuapp.com'
 
 export const postCelcoin = async (payload) => {
     // const data = await getData();

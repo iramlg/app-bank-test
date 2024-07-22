@@ -5,18 +5,26 @@ import { DashboardProvider } from '../../Context/Main';
 export default function Layout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-        <DashboardProvider screeOptions={{
-            drawerPosition: 'right'
-        }}>
+      <DashboardProvider>
         <Drawer>
-            <Drawer.Screen
+          <Drawer.Screen
             name="dashboard" // This is the name of the page and must match the url from root
             options={{
-                headerShown: false
+                headerShown: false,
+                title: 'Home',
+                drawerPosition: 'right'
             }}
-            />
+          />
+          <Drawer.Screen
+            name="logout" // This is the name of the page and must match the url from root
+            options={{
+                headerShown: false,
+                title: 'Sair',
+                drawerPosition: 'right'
+            }}
+          />
         </Drawer>
-        </DashboardProvider>
+      </DashboardProvider>
     </GestureHandlerRootView>
   );
 }

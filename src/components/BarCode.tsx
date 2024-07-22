@@ -3,7 +3,7 @@ import { CameraView, useCameraPermissions } from 'expo-camera';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { DashboardContext } from '../Context/Main';
 
-export default function App() {
+export default function BarCode() {
   const { getBoletoInfo, boletoInfo } = useContext(DashboardContext);
   const [permission, requestPermission] = useCameraPermissions();
   const [codigo, setCodigo] = useState();
