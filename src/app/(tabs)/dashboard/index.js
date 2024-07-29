@@ -5,20 +5,20 @@ import { Link } from 'expo-router';
 import { DashboardContext } from '../../../Context/Main';
 
 export default function Dashboard() {
-  const { getInfo, info, getSaldo, saldo } = useContext(DashboardContext);
+  const { getInfo, loginInfo, getSaldo, saldo } = useContext(DashboardContext);
 
   useEffect(() => {
-    getInfo();
+    // getInfo();
     getSaldo();
   }, [])
 
-  console.log('info', info)
+  console.log('info', loginInfo)
   console.log('saldo', saldo)
   return (
     <View style={styles.container}>
-      {info.data ? (
+      {loginInfo.data ? (
         <View>
-          <Text>{info.data.fullName}</Text>
+          <Text>{loginInfo.data.fullName}</Text>
           <Text>Saldo: {saldo.data ? saldo.data.amount : null}</Text>
         </View>
       ) : null}

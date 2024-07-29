@@ -2,8 +2,6 @@ import React, { createContext, useEffect, useState } from 'react';
 import {
     postCelcoin
 } from '../Services/Main';
-// import initialConverter from './converters/initial'
-// import detailsConverter from './converters/details'
 
 export const DashboardContext = createContext();
 export const DashboardProvider = ({ children }) => {
@@ -14,12 +12,76 @@ export const DashboardProvider = ({ children }) => {
   const [boletoInfo, setBoletoInfo] = useState({ });
   const [addAccountStatus, setAddAccountStatus] = useState({ });
   const [saldo, setSaldo] = useState({ loading: true });
+  const [loginInfo, setLoginInfo] = useState({});
+  const [account, setAccount] = useState('');
+  const [pixKeys, setPixKeys] = useState({});
+
+  async function getPixKeys(data) {
+    setPixKeys({ loading: true });
+
+    const response = await postCelcoin({
+      url: `https://sandbox.openfinance.celcoin.dev/celcoin-baas-pix-dict-webservice/v1/pix/dict/entry/${account}`,
+      method: "GET"
+    });
+    console.log('response', response)
+    if (response.error || !response.data || !response.data) {
+      if (response.errorType && response.errorType == 401) {
+        // navigation.navigate('logoff');
+      }
+
+      if (response.errorType && response.errorType == 404) {
+        // navigation.navigate('logoff');
+        setPixKeys({
+          success: true,
+          data: [],
+        });
+        return;
+      }
+      // console.log('response', response)
+      if (response && !response.success) {
+        setPixKeys(response);
+      }
+    } else {
+        console.log('getPixKeys', response)
+        setPixKeys({
+          success: true,
+          data: response.data,
+        });
+    }
+  };
+
+  async function login({ doc }) {
+    setLoginInfo({ loading: true });
+
+    const response = await postCelcoin({
+      url: `https://sandbox.openfinance.celcoin.dev/baas-accountmanager/v1/account/fetch?DocumentNumber=${doc}`,
+      method: "GET"
+    });
+
+    if (response.error || !response.data || !response.data.body) {
+      if (response.errorType && response.errorType == 401) {
+        // navigation.navigate('logoff');
+      }
+
+      if (response && !response.success) {
+        setLoginInfo(response);
+      }
+    } else {
+        // console.log('getSaldo', response)
+        setAccount(response.data.body.account.account)
+        setLoginInfo({
+          success: true,
+          data: response.data.body,
+        });
+      
+    }
+  };
   
   async function getSaldo(data) {
     setSaldo({ loading: true });
 
     const response = await postCelcoin({
-      url: `https://sandbox.openfinance.celcoin.dev/baas-walletreports/v1/wallet/balance?Account=30054850018`,
+      url: `https://sandbox.openfinance.celcoin.dev/baas-walletreports/v1/wallet/balance?Account=${account}`,
       method: "GET"
     });
 
@@ -44,7 +106,7 @@ export const DashboardProvider = ({ children }) => {
     setInfo({ loading: true });
 
     const response = await postCelcoin({
-      url: `https://sandbox.openfinance.celcoin.dev/baas-accountmanager/v1/account/fetch?Account=30054850018&DocumentNumber`,
+      url: `https://sandbox.openfinance.celcoin.dev/baas-accountmanager/v1/account/fetch?Account=${account}&DocumentNumber`,
       method: "GET"
     });
 
@@ -132,27 +194,10 @@ export const DashboardProvider = ({ children }) => {
       getInfo, info,
       getBoletoInfo, boletoInfo,
       addAccount, addAccountStatus,
+      login, loginInfo, setLoginInfo,
+      pixKeys, setPixKeys, getPixKeys
     }}>
       {children}
     </DashboardContext.Provider>
   );
 };
-
-
-
-
-
-// https://sandbox.openfinance.celcoin.dev/baas-walletreports/v1/wallet/movement?DateFrom=yyyy-MM-dd&DateTo=yyyy-MM-dd
-
-// curl --request POST \
-//      --url https://sandbox.openfinance.celcoin.dev/v5/transactions/billpayments/authorize \
-//      --header 'accept: application/json' \
-//      --header 'content-type: application/json' \
-//      --data '
-// {
-//   "barCode": {
-//     "type": 0,
-//     "digitable": "23793381286008301352856000063307789840000150000"
-//   }
-// }
-// '
