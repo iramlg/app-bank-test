@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Pressable } from 'react-native';
 import { Link } from 'expo-router';
+import * as Clipboard from 'expo-clipboard';
 import { DashboardContext } from '../../../Context/Main';
 
 export default function MyKeys() {
@@ -11,18 +12,27 @@ export default function MyKeys() {
     getPixKeys()
   }, [])
 
-  console.log('pixKeys', pixKeys)
+  if (pixKeys.data && pixKeys.data.body) {
+    console.log('pixKeys', pixKeys.data.body.listKeys)
+  }
+
   return (
     <View style={styles.container}>
-      {pixKeys.data ? (
+      {pixKeys.data && pixKeys.data.body && pixKeys.data.body.listKeys ? (
         <View>
-          {pixKeys.data.length ? pixKeys.data.map((key) => (
-            <Text>{key.name}</Text>
+          {pixKeys.data.body.listKeys.length ? pixKeys.data.body.listKeys.map((key, i) => (
+            <Pressable onPress={() => Clipboard.setStringAsync(key.key)}>
+              <View key={key.key}>
+                <Text>{key.keyType}</Text>
+                <Text>{key.key}</Text>
+              </View>
+            </Pressable>
           )) : (
             <Link href={"pix/newKey"}>Cadastrar primeira chave</Link>
           )}
+          <Link href={"pix/newKey"}>Cadastrar nova chave</Link>
         </View>
-      ) : (<Text>Minhas Chaves</Text>)}
+      ) : (<Link href={"pix/newKey"}>Cadastrar primeira chave</Link>)}
       
       <StatusBar style="auto" />
     </View>

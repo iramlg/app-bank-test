@@ -16,6 +16,32 @@ export const DashboardProvider = ({ children }) => {
   const [account, setAccount] = useState('');
   const [pixKeys, setPixKeys] = useState({});
 
+  async function addPixelKey(data) {
+    const response = await postCelcoin({
+      url: `https://sandbox.openfinance.celcoin.dev/celcoin-baas-pix-dict-webservice/v1/pix/dict/entry`,
+      method: "POST",
+      payload: {
+        ...data,
+        account: account,
+      }
+    });
+    console.log('response', response)
+    if (response.error || !response.data || !response.data) {
+      if (response.errorType && response.errorType == 401) {
+        // navigation.navigate('logoff');
+      }
+
+      return {
+        error: true,
+      }
+    } else {
+        return {
+          success: true,
+          data: response.data,
+        };
+    }
+  };
+
   async function getPixKeys(data) {
     setPixKeys({ loading: true });
 
@@ -195,7 +221,8 @@ export const DashboardProvider = ({ children }) => {
       getBoletoInfo, boletoInfo,
       addAccount, addAccountStatus,
       login, loginInfo, setLoginInfo,
-      pixKeys, setPixKeys, getPixKeys
+      pixKeys, setPixKeys, getPixKeys,
+      addPixelKey,
     }}>
       {children}
     </DashboardContext.Provider>
