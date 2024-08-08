@@ -7,22 +7,33 @@ import { WebView } from 'react-native-webview';
 import { DashboardContext } from '../../Context/Main';
 
 export default function Login() {
-  const { login, loginInfo } = useContext(DashboardContext);
+  const { login, loginInfo, cleanUp } = useContext(DashboardContext);
   const [modalVisible, setModalVisible] = useState(false);
-  const [text, setText] = useState('35197426837');
+  const [text, setText] = useState('48926885097');
   const [pass, setPass] = useState('');
   const [usePass, setUsePass] = useState(false);
   const router = useRouter();
 
-  // useEffect(() => {
-  //   setLoginInfo({});
-  // }, [])
-
   useEffect(() => {
     if (loginInfo.success) {
-      router.push("/dashboard")
+      if (loginInfo.status && loginInfo.status === 404) {
+        router.push({
+          pathname: "/auth/signup-status",
+          params: { doc: text }
+        });
+      } else {
+        router.push("/dashboard")
+      }
+      
     }
   }, [loginInfo.success])
+
+  cleanUp
+  useEffect(() => {
+    if (loginInfo.success) {
+      cleanUp();
+    }
+  }, [])
 
   return (
     <View style={styles.container}>

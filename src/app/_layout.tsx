@@ -7,9 +7,9 @@ export default function Layout() {
         <DashboardProvider>
             <Stack screenOptions={{ headerShadowVisible: false, headerShown: false, contentStyle: { backgroundColor: '#FFF' } }}> 
                 <Stack.Screen name="index" />
-                <Stack.Screen name="test"  options={{ headerShown: false, title: "Test" }} />
+                <Stack.Screen name="test" options={{ headerShown: false, title: "Test" }} />
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen name="auth/login"  options={{ headerShown: false, title: "Test" }} />
+                <Stack.Screen name="auth" options={{ headerShown: false, title: "Test" }} />
             </Stack>
         </DashboardProvider>
     )

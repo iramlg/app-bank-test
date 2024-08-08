@@ -6,10 +6,11 @@ import { Link } from 'expo-router';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Bank app test</Text>
-      <Text>.</Text>
+      <Text style={{fontWeight: 700, fontSize: 16}}>Bank app test</Text>
+      <Text></Text>
       <Link href={"/auth/login"}>Login</Link>
-      <Link href={"/dashboard"}>Area logada</Link>
+      <Text></Text>
+      <Link href={"/auth/signup"}>Cadastrar</Link>
       <StatusBar style="auto" />
     </View>
   );

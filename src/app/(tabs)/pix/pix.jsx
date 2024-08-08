@@ -7,6 +7,7 @@ export default function Card() {
     <View style={styles.container}>
       <Text>Pix</Text>
       <Link href={"pix/myKeys"}>Minhas Chaves</Link>
+      <Link href={"pix/qrCode"}>Gerar QR Code</Link>
       <StatusBar style="auto" />
     </View>
   );
