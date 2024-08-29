@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import {
-    postCelcoin, accountCreate, getUser,
+    postCelcoin, accountCreate, getUser, getCEPAddress,
 } from '../Services/Main';
 
 function wait(milliseconds) {
@@ -19,6 +19,26 @@ export const DashboardProvider = ({ children }) => {
   const [loginInfo, setLoginInfo] = useState({});
   const [account, setAccount] = useState('');
   const [pixKeys, setPixKeys] = useState({});
+  const [payload, setPayload] = useState({
+    "address": {
+      "postalCode": null,
+      "street": null,
+      "number": null,
+      "addressComplement": null,
+      "neighborhood": null,
+      "city": null,
+      "state": null
+    },
+    "isPoliticallyExposedPerson": false,
+    "onboardingType": "BAAS",
+    "phoneNumber": null,
+    "clientCode": "smart24",
+    "documentNumber": null,
+    "email": null,
+    "motherName": null,
+    "fullName": null,
+    "birthDate": null
+  });
 
   async function createStaticQR(data) {
     const response = await postCelcoin({
@@ -28,8 +48,7 @@ export const DashboardProvider = ({ children }) => {
     });
 
     await wait(2000);
-    console.log('response', response.data.transactionId)
-    console.log('uri', `https://sandbox.openfinance.celcoin.dev/pix/v1/brcode/static/${response.data.transactionId}/base64`)
+
     const base64Response = await postCelcoin({
       url: `https://sandbox.openfinance.celcoin.dev/pix/v1/brcode/static/${response.data.transactionId}/base64`,
       method: "GET"
@@ -64,7 +83,7 @@ export const DashboardProvider = ({ children }) => {
         account: account,
       }
     });
-    console.log('response', response)
+    // console.log('response', response)
     if (response.error || !response.data || !response.data) {
       if (response.errorType && response.errorType == 401) {
         // navigation.navigate('logoff');
@@ -88,7 +107,7 @@ export const DashboardProvider = ({ children }) => {
       url: `https://sandbox.openfinance.celcoin.dev/celcoin-baas-pix-dict-webservice/v1/pix/dict/entry/${account}`,
       method: "GET"
     });
-    console.log('response', response)
+
     if (response.error || !response.data || !response.data) {
       if (response.errorType && response.errorType == 401) {
         // navigation.navigate('logoff');
@@ -107,7 +126,7 @@ export const DashboardProvider = ({ children }) => {
         setPixKeys(response);
       }
     } else {
-        console.log('getPixKeys', response)
+        // console.log('getPixKeys', response)
         setPixKeys({
           success: true,
           data: response.data,
@@ -301,9 +320,15 @@ export const DashboardProvider = ({ children }) => {
         setAddAccountStatus({
             success: true,
             data: response.data?.body?.proposal[0],
-        });
+        }); 
     }
   };
+
+  async function getAddress(cep) {
+    const data = await getCEPAddress(cep);
+
+    return data;
+  }
 
   async function cleanUp() {
     setInfo({});
@@ -325,6 +350,7 @@ export const DashboardProvider = ({ children }) => {
       login, loginInfo, setLoginInfo, createLocalProposal,
       pixKeys, setPixKeys, getPixKeys,
       addPixelKey, createStaticQR,
+      payload, setPayload,
     }}>
       {children}
     </DashboardContext.Provider>

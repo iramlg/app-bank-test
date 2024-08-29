@@ -1,10 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, TextInput, Modal, TouchableWithoutFeedback, Pressable } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Modal, TouchableWithoutFeedback, Pressable } from 'react-native';
 import * as LocalAuthentication from 'expo-local-authentication';
 import { Link, useRouter } from 'expo-router';
 import { WebView } from 'react-native-webview';
+import MaskInput, { Masks } from 'react-native-mask-input';
 import { DashboardContext } from '../../Context/Main';
+import Button from '../../components/Button';
 
 export default function Login() {
   const { login, loginInfo, cleanUp } = useContext(DashboardContext);
@@ -57,11 +59,13 @@ export default function Login() {
       </Modal>
       <Text>Login</Text>
       <Text>CPF</Text>
-      <TextInput
+      <MaskInput
+        value={text}
         style={styles.input}
-        placeholder="CPF"
-        onChangeText={newText => setText(newText)}
-        defaultValue={text}
+        keyboardType = 'numeric'
+        placeholder="xxx.xxx.xxx-xx"
+        onChangeText={setText}
+        mask={Masks.BRL_CPF}
       />
       {usePass ? (<>
         <TextInput
@@ -90,7 +94,7 @@ export default function Login() {
         }
         // login({doc: text})
         // setModalVisible(true);
-      }} title="Face Id" />
+      }} title="Face Id ss" />
       <Link href={"/"}>Home</Link>
       <StatusBar style="auto" />
     </View>
@@ -105,10 +109,13 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   input: {
-    borderWidth: 1,
+    borderBottomWidth: 1,
     borderColor: '#DDD',
+    backgroundColor: '#f9f9f9',
     paddingLeft: 10,
+    fontSize: 16,
     height: 40,
+    marginBottom: 8,
   },
   modal: {
     justifyContent: 'flex-end', margin: 0

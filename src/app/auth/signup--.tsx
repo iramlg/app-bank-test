@@ -4,12 +4,13 @@ import { StyleSheet, Text, View, Button, Modal, ActivityIndicator } from 'react-
 import * as LocalAuthentication from 'expo-local-authentication';
 import { Link } from 'expo-router';
 import { WebView } from 'react-native-webview';
+import MaskInput, { Masks } from 'react-native-mask-input';
 import { DashboardContext } from '../../Context/Main';
 
 export default function SignUp() {
   const { addAccount, addAccountStatus, getAccountStatus, cleanUp, createLocalProposal } = useContext(DashboardContext);
   const [modalVisible, setModalVisible] = useState(false);
-  const payload = {
+  const [payload, setPayload] = useState({
     "address": {
       "postalCode": "03364020",
       "street": "Rua Caparao",
@@ -28,7 +29,7 @@ export default function SignUp() {
     "motherName": "Fátima Isabel Lopes",
     "fullName": "Flavio Lopes Gourlat",
     "birthDate": "02-05-1986"
-  }
+  });
   const keys = Object.keys(payload);
   const addressKeys = Object.keys(payload.address);
 
@@ -81,22 +82,34 @@ export default function SignUp() {
           <Text></Text>
           <Link href={"/"}>Voltar</Link>
         </View>
-      ) : keys.map((item) => {
-        if (item === 'address') {
-          return (
-            <View>
-              {addressKeys.map((aItem) => {
-                return (
-                  <Text>{aItem}: {payload.address[aItem]}</Text>
-                )
-              })}
-            </View>
-          )
-        }
-        return (
-          <Text>{item}: {payload[item]}</Text>
-        )
-      })}
+      ) : (
+        <>
+          <MaskInput
+            value={payload.address.postalCode}
+            // style={styles.input}
+            keyboardType = 'numeric'
+            placeholder="xxx.xxx.xxx-xx"
+            // onChangeText={setPayload}
+            mask={Masks.ZIP_CODE}
+          />
+          {keys.map((item) => {
+            if (item === 'address') {
+              return (
+                <View>
+                  {addressKeys.map((aItem) => {
+                    return (
+                      <Text>{aItem}: {payload.address[aItem]}</Text>
+                    )
+                  })}
+                </View>
+              )
+            }
+            return (
+              <Text>{item}: {payload[item]}</Text>
+            )
+          })}
+        </>
+      )}
       {addAccountStatus.data ? (
         <></>
       ) : (
@@ -105,9 +118,6 @@ export default function SignUp() {
         }} title="Cadastrar" />
       )}
       <Link href={"/"}>Voltar</Link>
-      <Text></Text>
-      <Text></Text>
-      <Text></Text>
       <StatusBar style="auto" />
     </View>
   );

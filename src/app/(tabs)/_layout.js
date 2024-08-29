@@ -1,13 +1,23 @@
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Button } from 'react-native';
 import { Drawer } from 'expo-router/drawer';
+import styled from 'styled-components/native';
 import { Link, useNavigation, useRouter } from "expo-router";
+
+const Container = styled.SafeAreaView`
+flex: 1;
+flex-direction: column;
+justify-content: flex-start;
+align-self: stretch;
+`;
 
 export default function Layout() {
   const navigation = useNavigation();
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <Container>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+      
         <Drawer>
           <Drawer.Screen
             name="dashboard" // This is the name of the page and must match the url from root
@@ -34,7 +44,9 @@ export default function Layout() {
             }}
           />
         </Drawer>
-    </GestureHandlerRootView>
+      
+      </GestureHandlerRootView>
+    </Container>
   );
 }
 
