@@ -1,8 +1,8 @@
 import axios from 'axios';
 // import { getData } from '../utils/token';
 
-// const apiRoute = 'https://5007-2804-7f0-bf41-81f0-50ac-c25a-44de-d2af.ngrok-free.app'
-const apiRoute = 'http://localhost:3000';
+const apiRoute = 'https://27d8-2804-7f0-bf42-2727-dd4f-bfe9-4e87-ba85.ngrok-free.app'
+// const apiRoute = 'http://localhost:3000';
 // const apiRoute = 'https://intense-journey-60943-94ecef839bd9.herokuapp.com'
 
 export const getUser = async (payload) => {

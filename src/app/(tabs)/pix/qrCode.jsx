@@ -3,13 +3,14 @@ import {Picker} from '@react-native-picker/picker';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Button, Modal, Pressable, TouchableWithoutFeedback, Image } from 'react-native';
 import { Link, useNavigation, useRouter } from "expo-router";
+import CurrencyInput from 'react-native-currency-input';
 import { DashboardContext } from '../../../Context/Main';
 
 export default function qrCode() {
   const router = useRouter();
   const [modalVisible, setModalVisible] = useState(false);
   const { createStaticQR, getPixKeys, loginInfo, pixKeys } = useContext(DashboardContext);
-  const [text, setText] = useState('');
+  const [text, setText] = useState(0);
   const [createdQrCode, setCreatedQrCode] = useState({});
 
   useEffect(() => {
@@ -17,7 +18,7 @@ export default function qrCode() {
         getPixKeys();
     }
   }, [])
-  console.log(pixKeys.data)
+  console.log(text)
   if (!pixKeys.data) {
     return (
         <View><Text>Carregando</Text></View>
@@ -53,11 +54,13 @@ export default function qrCode() {
         <Text>Chave a usar para recebimento</Text>
         <Text>{pixKeys.data.body && pixKeys.data.body.listKeys[0].key}</Text>
         <Text>Valor</Text>
-        <TextInput
-            style={styles.input}
-            placeholder="0"
-            onChangeText={newText => setText(newText)}
-            defaultValue={text}
+        <CurrencyInput
+          value={text}
+          onChangeValue={setText}
+          prefix="R$"
+          delimiter="."
+          separator=","
+          precision={2}
         />
         <Button
           title="Gerar"
@@ -99,8 +102,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+
   },
   containerModal: {
     backgroundColor: '#fff',
