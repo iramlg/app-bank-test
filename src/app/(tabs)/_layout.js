@@ -36,6 +36,14 @@ export default function Layout() {
             }}
           />
           <Drawer.Screen
+            name="payment"
+            options={{
+              headerShown: false,
+              title: 'Código de barras',
+              drawerPosition: 'right'
+            }}
+          />
+          <Drawer.Screen
             name="logout" // This is the name of the page and must match the url from root
             options={{
                 headerShown: false,
