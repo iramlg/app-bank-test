@@ -228,10 +228,8 @@ export const DashboardProvider = ({ children }) => {
       url: `https://sandbox.openfinance.celcoin.dev/v5/transactions/billpayments/authorize`,
       method: "POST",
       payload: {
-        barCode: {
-          type: 1,
-          barCode
-        }}
+        barCode
+      }
     });
 
     if (response.error || !response.data) {

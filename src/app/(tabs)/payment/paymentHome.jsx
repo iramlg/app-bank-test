@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Pressable } from 'react-native';
 import React, {useState, useEffect, useContext} from 'react';
-import { Link } from 'expo-router';
+import { useRouter } from 'expo-router';
 import Input from '../../../components/Input';
 import * as Clipboard from 'expo-clipboard';
 
 export default function PaymentHome() {
+  const router = useRouter();
   const [barCode, setBarCode] = useState('');
 
   return (
@@ -25,6 +26,11 @@ export default function PaymentHome() {
         setBarCode(text);
       }}>
         <Text style={styles.clipboardCopy}>Colar código</Text>
+      </Pressable>
+      <Pressable onPress={async() => {
+        router.push({ pathname: 'payment/paymentReview', params: { barCode } })
+      }}>
+        <Text style={styles.clipboardCopy}>Continuar</Text>
       </Pressable>
       <StatusBar style="auto" />
     </View>

@@ -1,37 +1,40 @@
 import React from 'react';
-import { Button } from 'react-native';
+import { Button, Pressable } from 'react-native';
 import { Stack } from "expo-router";
-import { Link, useNavigation, useRouter } from "expo-router";
+import { Link, useNavigation, useLocalSearchParams } from "expo-router";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 export default function Layout() {
     const navigation = useNavigation();
 
     return (
-        <Stack screenOptions={{ headerShadowVisible: false, contentStyle: { backgroundColor: '#FFF' } }}> 
-            <Stack.Screen name="payment" options={{
+        <Stack screenOptions={{ headerShadowVisible: false, contentStyle: { backgroundColor: '#FFF' } }}>
+            <Stack.Screen name="paymentHome" options={{
                 title: "Código de barras",
                 headerLeft: () => (
-                    <Button
-                      onPress={() => {
-                        navigation.navigate('dashboard');
-                      } }
-                      title="<"
-                      color="#000"
-                    />
+                  <Link href={"/barCode"}>
+                    <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
+                  </Link>
                 ),
                 headerRight: () => (
-                  <Button
-                    onPress={() => {
-                      navigation.navigate('dashboard');
-                    } }
-                    title="<"
-                    color="#000"
-                  />
+                  <Link href={"/payment/barCode"}>
+                    <MaterialCommunityIcons name="camera" size={24} color="black" />
+                  </Link>
               ),
             }} />
-            {/* <Stack.Screen name="myKeys" options={{ title: "Minhas Chaves" }} />
-            <Stack.Screen name="newKey" options={{ title: "Nova Chave" }} />
-            <Stack.Screen name="qrCode" options={{ title: "QR Code" }} /> */}
+            <Stack.Screen name="barCode" options={{
+                headerShown: false,
+                title: 'Código de barras',
+                orientation: 'landscape'
+            }} />
+            <Stack.Screen name="paymentReview" options={{
+              headerLeft: () => (
+                <Link href={"/payment/paymentHome"}>
+                  <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
+                </Link>
+              ),
+                title: 'Pagamentos',
+            }} /> 
         </Stack>
     )
 }

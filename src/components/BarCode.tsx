@@ -1,9 +1,15 @@
 import React, {useState, useEffect, useContext} from 'react';
+import { _ } from 'lodash';
+// import {linhaDigitavel2CodBarras} from '@weslleyrocha/boleto-utils';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Link, useNavigation, useRouter } from "expo-router";
 import { DashboardContext } from '../Context/Main';
 
+
 export default function BarCode() {
+  const navigation = useNavigation();
+  const router = useRouter();
   const { getBoletoInfo, boletoInfo } = useContext(DashboardContext);
   const [permission, requestPermission] = useCameraPermissions();
   const [codigo, setCodigo] = useState();
@@ -29,6 +35,10 @@ export default function BarCode() {
     console.log('boletoInfo', boletoInfo.data);
     return (
       <View style={styles.container}>
+        <View style={styles.grid}>
+          <Text style={{ }}>Banco</Text>
+          <Text style={{ }}>{boletoInfo.data.assignor}</Text>
+        </View>
         <Text style={{ }}>Banco {boletoInfo.data.assignor}</Text>
         <Text style={{ }}>Pagador {boletoInfo.data.registerData.payer}</Text>
         <Text style={{ }}>Pagador Doc {boletoInfo.data.registerData.documentPayer}</Text>
@@ -45,21 +55,23 @@ export default function BarCode() {
     <View style={styles.container}>
       {codigo ? (
         <View style={styles.container}>
-          <Text style={{ textAlign: 'center' }}>{codigo}</Text>
           <Button onPress={() => {
-
-            getBoletoInfo({barCode: '12198000000000000000000000000011114232524114'})
-          }} title="Proseguir" />
+            setCodigo(false)
+          }} title="Escanear" />
         </View>
       ) : (
         <CameraView style={styles.camera} onBarcodeScanned={(a) => {
-          console.log(a.data);
-          setCodigo(a.data)
+          if (a.data.length > 40) {
+            setCodigo(a.data);
+            router.push({ pathname: 'payment/paymentReview', params: { digitable: a.data } })
+          }
         }} >
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => {}}>
+            <Link style={styles.button} href={{
+              pathname: 'payment/paymentHome'
+            }}>
               <Text style={styles.text}>Digitar código</Text>
-            </TouchableOpacity>
+            </Link>
           </View>
         </CameraView>
       )}
@@ -80,6 +92,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: 'transparent',
     margin: 64,
+    transform: [
+      // { scaleY: -1 },
+      // { rotateY: '90deg'}
+    ],
   },
   button: {
     flex: 1,
