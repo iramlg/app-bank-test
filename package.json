@@ -16,6 +16,7 @@
     "@types/react": "~18.2.79",
     "@weslleyrocha/boleto-utils": "^2.0.2",
     "axios": "^1.7.2",
+    "cpf-cnpj-validator": "^1.0.3",
     "dayjs": "^1.11.13",
     "expo": "~51.0.9",
     "expo-camera": "~15.0.10",
