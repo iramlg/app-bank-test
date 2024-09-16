@@ -221,7 +221,6 @@ export const DashboardProvider = ({ children }) => {
   };
 
   async function getBoletoInfo({ barCode }) {
-    console.log('getBoletoInfo', barCode)
     setBoletoInfo({ loading: true });
     
     const response = await postCelcoin({

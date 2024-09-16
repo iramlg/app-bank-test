@@ -23,7 +23,6 @@ export default function PaymentReview() {
   const navigation = useNavigation();
 
   useEffect(() => {
-    console.log(params)
     getBoletoInfo({
       type: 1,
       barCode: params
@@ -83,9 +82,35 @@ export default function PaymentReview() {
 
   if (info) {
     // Camera permissions are not granted yet.
-    console.log('boletoInfo', boletoInfo.data);
     return (
       <View style={styles.container}>
+        <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+        >
+            <Pressable style={{flex:1 , flexDirection: 'column-reverse',backgroundColor: 'rgba(0,0,0,0.6)'}} onPress={() => {
+                setModalVisible(false)
+            }}>
+            <TouchableWithoutFeedback style={{backgroundColor:'#FFFFFF', paddingBottom: 30}}>
+                <View style={styles.containerModal}>
+                  <LottieView
+                    autoPlay
+                    loop={false}
+                    style={{
+                      width: 200,
+                      height: 200,
+                    }}
+                    source={require('../../../../assets/check.json')}
+                  />
+                  <Button onPress={async() => {
+                      await setModalVisible(false);
+                      navigation.navigate('payment');
+                  }} title="Fechar" />
+                </View>
+            </TouchableWithoutFeedback>
+            </Pressable>
+        </Modal>
         <View>
           {info.map((item) => (
             <View style={styles.grid}>
@@ -95,7 +120,7 @@ export default function PaymentReview() {
           ))}
           <Text style={styles.infoText}>Os pagamentos efetuados após as 22h serão executados com data contábil do próximo dia útil.</Text>
         </View>
-        <Button style={styles.button} onPress={() => {}} title="Pagar" />
+        <Button style={styles.button} onPress={() => {setModalVisible(true)}} title="Pagar" />
       </View>
     );
   }
@@ -151,5 +176,11 @@ const styles = StyleSheet.create({
   },
   button: {
     // alignSelf: 'baseline'
-  }
+  },
+  containerModal: {
+    backgroundColor: '#fff',
+    paddingTop: 40,
+    padding: 20,
+    justifyContent: 'center',
+  },
 });
