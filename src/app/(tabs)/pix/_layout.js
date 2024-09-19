@@ -24,6 +24,7 @@ export default function Layout() {
             <Stack.Screen name="newKey" options={{ title: "Nova Chave" }} />
             <Stack.Screen name="qrCode" options={{ title: "QR Code" }} />
             <Stack.Screen name="payment" options={{ title: "Pix" }} />
+            <Stack.Screen name="pixPaymentReview" options={{ title: "Pix" }} />
         </Stack>
     )
 }

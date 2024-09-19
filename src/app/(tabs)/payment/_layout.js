@@ -12,7 +12,7 @@ export default function Layout() {
             <Stack.Screen name="paymentHome" options={{
                 title: "Código de barras",
                 headerLeft: () => (
-                  <Link href={"/barCode"}>
+                  <Link href={"/dashboard"}>
                     <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
                   </Link>
                 ),

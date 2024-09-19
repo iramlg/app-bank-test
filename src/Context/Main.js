@@ -19,6 +19,7 @@ export const DashboardProvider = ({ children }) => {
   const [loginInfo, setLoginInfo] = useState({});
   const [account, setAccount] = useState('');
   const [pixKeys, setPixKeys] = useState({});
+  const [pixDict, setPixDict] = useState({});
   const [payload, setPayload] = useState({
     "address": {
       "postalCode": null,
@@ -249,6 +250,36 @@ export const DashboardProvider = ({ children }) => {
     }
   };
 
+  async function getPixDict({ key }) {
+    setPixDict({ loading: true });
+    
+    const response = await postCelcoin({
+      url: `https://sandbox.openfinance.celcoin.dev/pix/v1/dict/v2/key`,
+      method: "POST",
+      payload: {
+        payerId: "35197426837",
+        key: "ebb1b59d-95a3-43f8-9104-29e140ebbf2a"
+      }
+    });
+
+    if (response.error || !response.data) {
+      console.log('setPixDict error: ', response)
+      if (response.errorType && response.errorType == 401) {
+        // navigation.navigate('logoff');
+      }
+
+      if (response && !response.success) {
+        setPixDict(response);
+      }
+    } else {
+        console.log('setPixDict', response)
+        setPixDict({
+            success: true,
+            data: response.data,
+        });
+    }
+  };
+
   async function addAccount(payload) {
     console.log('here addAccount', payload)
     setAddAccountStatus({ loading: true });
@@ -343,6 +374,7 @@ export const DashboardProvider = ({ children }) => {
       getSaldo, saldo,
       getInfo, info,
       getBoletoInfo, boletoInfo,
+      getPixDict, pixDict,
       addAccount, addAccountStatus, getAccountStatus,
       login, loginInfo, setLoginInfo, createLocalProposal,
       pixKeys, setPixKeys, getPixKeys,
