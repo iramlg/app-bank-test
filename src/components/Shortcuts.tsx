@@ -1,27 +1,22 @@
 import React from 'react';
-import { formatCurrency } from "react-native-format-currency";
-import { StyleSheet, View } from 'react-native';
 import styled from 'styled-components/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Link } from 'expo-router';
 
 export default function Statement() {
     const data = [
         {
-            icon: "wallet",
+            icon: "pix",
+            materialIcon: true,
             title: "Pix",
-            href: '/pix'
+            href: '/pix/payment'
         },
         {
-            icon: "wallet",
-            title: "Pix",
-            href: '/pix'
-        },
-        {
-            icon: "wallet",
-            title: "Pix",
-            href: '/pix'
+            icon: "barcode",
+            title: "Pagamento",
+            href: '/payment'
         },
         {
             icon: "wallet",
@@ -42,7 +37,10 @@ export default function Statement() {
                     return (
                         <Link href={item.href}>
                             <Box>
-                                <MaterialCommunityIcons name={item.icon} size={24} color="black" />
+                                {item.materialIcon ? 
+                                <MaterialIcons name={item.icon} size={24} color="black" />
+                                : <MaterialCommunityIcons name={item.icon} size={24} color="black" /> }
+                                
                                 <Text>{item.title}</Text>
                             </Box>
                         </Link>
@@ -54,54 +52,22 @@ export default function Statement() {
 }
 
 const BoxWrapper = styled.View`
-    padding-top: 10px;
+    padding-top: 20px;
 `;
 const Box = styled.View`
     width: 100px;
     height: 100px;
     margin-left: 10px;
     padding: 6px;
-    padding-top: 14px;
+    padding-top: 24px;
     background-color: #EEE;
     margin: 8px;
     border-radius: 16px;
     align-items: center;
     align-content: center;
 `;
-const Disabled = styled.View`
-    align-items: center;
-    padding: 6px;
-    border-color: #CCC;
-    margin-bottom: 8px;
-    border-radius: 16px;
-`;
-const TitleView = styled.View`
-    margin-top: 20px;
-    margin-bottom: 10px;
-    border-bottom-color: #b4b3e3;
-    border-bottom-width: 1px;
-`;
-const Title = styled.Text`
-    font-size: 22px;
-    font-weight: 500;
-    color: #000;
-    padding: 10px;
-    text-align: center;
-`;
-const DateView = styled.View`
-    border-bottom-color: #DDD;
-    border-bottom-width: 1px;
-`;
-const ItemView = styled.View`
-    padding: 10px;
-`;
 const Text = styled.Text`
+    padding-top: 8px;
     font-size: 16px;
-    color: #000;
-`;
-const TextCurrency = styled.Text`
-    font-size: 20px;
-    font-weight: 600;
-    padding-top: 4px;
     color: #000;
 `;
