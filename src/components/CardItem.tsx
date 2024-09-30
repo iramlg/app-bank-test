@@ -21,8 +21,8 @@ export default function CardItem(props) {
 const MainButton = styled.View`
     align-items: center;
     justify-content: center;
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     padding: 6px;
     border: 1px solid #333;
     margin-bottom: 8px;
@@ -38,7 +38,7 @@ const Disabled = styled.View`
     border-radius: 16px;
 `;
 const Text = styled.Text`
-    font-size: 16px;
+    font-size: 15px;
     color: #000;
     font-weight: 600;
     text-align: center;

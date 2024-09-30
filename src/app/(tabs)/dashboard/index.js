@@ -7,12 +7,14 @@ import Shortcuts from '../../../components/Shortcuts';
 import Statement from '../../../components/Statement';
 
 export default function Dashboard() {
-  const { getInfo, loginInfo, getSaldo, saldo } = useContext(DashboardContext);
+  const { info, getInfo, loginInfo, getSaldo, saldo } = useContext(DashboardContext);
 
   useEffect(() => {
-    // getInfo();
+    getInfo();
     getSaldo();
   }, [])
+
+  // console.log(info)
 
   return (
     <View style={styles.container}>

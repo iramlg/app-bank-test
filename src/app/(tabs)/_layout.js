@@ -36,6 +36,14 @@ export default function Layout() {
             }}
           />
           <Drawer.Screen
+            name="card"
+            options={{
+              headerShown: false,
+                title: 'Cartões',
+                drawerPosition: 'right'
+            }}
+          />
+          <Drawer.Screen
             name="payment"
             options={{
               headerShown: false,

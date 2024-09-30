@@ -23,7 +23,7 @@ export default function PaymentPix() {
         <Input
           value={code}
           // style={styles.input}
-          keyboardType = 'numeric'
+          // keyboardType = 'numeric'
           placeholder=""
           onChangeText={(val, val2) => setCode(val)}
           mask={(text) => {

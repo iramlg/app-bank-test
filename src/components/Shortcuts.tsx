@@ -26,7 +26,7 @@ export default function Statement() {
         {
             icon: "wallet",
             title: "Cartão",
-            href: '/dashboard/card'
+            href: '/card'
         }
     ];
 
