@@ -6,8 +6,7 @@ import { Link, useNavigation, useRouter } from "expo-router";
 import { DashboardContext } from '../../../Context/Main';
 import BarCodeComponent from '../../../components/BarCode';
 
-
-export default function barCode() {
+const barCode = () => {
   const router = useRouter();
   const { addPixelKey, getPixKeys } = useContext(DashboardContext);
   const [text, setText] = useState('');
@@ -31,3 +30,5 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+export default barCode;

@@ -9,8 +9,7 @@ import Button from '../../../components/Button';
 
 const screenDimensions = Dimensions.get('screen');
 
-export default function PixQrCode() {
-  // const router = useRouter();
+const PixQrCode = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const { createStaticQR, getPixKeys, loginInfo, pixKeys } = useContext(DashboardContext);
   const [text, setText] = useState(0);
@@ -155,3 +154,5 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   }
 });
+
+export default PixQrCode;

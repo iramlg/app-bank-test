@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 import { Link, useNavigation, useRouter } from "expo-router";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
-export default function Layout() {
+const Layout = () => {
     const navigation = useNavigation();
 
     return (
@@ -36,3 +36,5 @@ export default function Layout() {
         </Stack>
     )
 }
+
+export default Layout;

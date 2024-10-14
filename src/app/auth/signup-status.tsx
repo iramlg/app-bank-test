@@ -6,7 +6,7 @@ import { Link } from 'expo-router';
 import { WebView } from 'react-native-webview';
 import { DashboardContext } from '../../Context/Main';
 
-export default function SignUp() {
+const SignUpStatus = () => {
   const { loginInfo, addAccountStatus, getAccountStatus, cleanUp } = useContext(DashboardContext);
   const [modalVisible, setModalVisible] = useState(false)
   const [accountCreated, setAccountCreated] = useState(false)
@@ -118,3 +118,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default SignUpStatus;

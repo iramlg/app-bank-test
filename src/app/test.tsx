@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { Link } from 'expo-router';
 
-export default function Test() {
+const Test = () => {
   return (
     <View style={styles.container}>
       <Text>test test test</Text>
@@ -22,3 +22,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default Test;

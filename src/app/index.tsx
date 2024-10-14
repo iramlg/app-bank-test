@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Link } from 'expo-router';
 import ButtonLink from './../components/ButtonLink';
 
-export default function App() {
+const App = () => {
   return (
     <View style={styles.container}>
       <Text style={{fontWeight: 700, fontSize: 16}}>Bank app test</Text>
@@ -25,3 +25,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default App;

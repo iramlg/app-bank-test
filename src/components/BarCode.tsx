@@ -7,7 +7,7 @@ import { Link, useNavigation, useRouter } from "expo-router";
 import { DashboardContext } from '../Context/Main';
 
 
-export default function BarCode() {
+const BarCode = () => {
   const navigation = useNavigation();
   const router = useRouter();
   const { getBoletoInfo, boletoInfo } = useContext(DashboardContext);
@@ -108,3 +108,5 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
+
+export default BarCode;

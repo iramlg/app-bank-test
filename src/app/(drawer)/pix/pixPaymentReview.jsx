@@ -1,86 +1,33 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {Picker} from '@react-native-picker/picker';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Modal, Pressable, TouchableWithoutFeedback, Image, ActivityIndicator, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Modal, Pressable, TouchableWithoutFeedback } from 'react-native';
 import { Link, useNavigation, useLocalSearchParams } from "expo-router";
 import LottieView from 'lottie-react-native';
 import CurrencyInput from 'react-native-currency-input';
 import { DashboardContext } from '../../../Context/Main';
 import Button from '../../../components/Button';
-import barCode from './barCode';
+import { formatDict } from '../../../utils/converter';
 
-const screenDimensions = Dimensions.get('screen');
 
-export default function PaymentReview() {
+const PixPaymentReview = () => {
   const params = useLocalSearchParams();
   
-  const { getBoletoInfo, boletoInfo } = useContext(DashboardContext);
+  const { getBoletoInfo, boletoInfo, getPixDict, pixDict } = useContext(DashboardContext);
   const [modalVisible, setModalVisible] = useState(false)
-  const { createStaticQR, getPixKeys, loginInfo, pixKeys } = useContext(DashboardContext);
+  const [text, setText] = useState(0);
   const [info, setInfo] = useState();
   const [createdQrCode, setCreatedQrCode] = useState({});
 
   const navigation = useNavigation();
 
   useEffect(() => {
-    getBoletoInfo({
-      type: 1,
-      barCode: params
-    })
+    console.log(params);
+    getPixDict(params)
   }, [])
+  console.log(pixDict)
 
-  useEffect(() => {
-    if (boletoInfo.data) {
-      setInfo([
-        {
-          label: 'Banco',
-          value: boletoInfo.data.assignor
-        },
-        {
-          label: 'Data de Vencimento',
-          value: boletoInfo.data.registerData.payDueDate,
-        },
-        {
-          label: 'Data do Pagamento',
-          value: boletoInfo.data.dueDate,
-        },
-        {
-          label: 'Valor nominal', 
-          value: boletoInfo.data.registerData.originalValue,
-        },
-        {
-          label: 'Encargos', 
-          value: boletoInfo.data.registerData.totalWithAdditional,
-        },
-        {
-          label: 'Descontos', 
-          value: boletoInfo.data.registerData.totalWithDiscount,
-        },
-        {
-          label: 'Valor total', 
-          value: boletoInfo.data.registerData.totalUpdated,
-        },
-        {
-          label: 'Nome do Beneficiário', 
-          value: boletoInfo.data.registerData.recipient,
-        },
-        {
-          label: 'Documento do Beneficiário', 
-          value: boletoInfo.data.registerData.documentRecipient,
-        },
-        {
-          label: 'Nome do Pagador', 
-          value: boletoInfo.data.registerData.payer,
-        },
-        {
-          label: 'Documento do Pagador', 
-          value: boletoInfo.data.registerData.documentPayer,
-        }
-      ])
-    }
-  }, [boletoInfo.data])
-
-  if (info) {
+  if (pixDict && pixDict.data) {
     // Camera permissions are not granted yet.
     return (
       <View style={styles.container}>
@@ -112,15 +59,21 @@ export default function PaymentReview() {
             </Pressable>
         </Modal>
         <View>
-          {info.map((item) => (
-            <View style={styles.grid}>
-              <Text style={styles.gridLabel}>{item.label}</Text>
-              <Text style={styles.gridContent}>{item.value}</Text>
-            </View>
-          ))}
-          <Text style={styles.infoText}>Os pagamentos efetuados após as 22h serão executados com data contábil do próximo dia útil.</Text>
+          <Text style={[styles.infoText, styles.infoTitle]}>Quanto você vai enviar?</Text>
+          <Text style={[styles.infoText, styles.infoOwner]}>Para {pixDict.data.owner.name}</Text>
+          <Text style={styles.infoText}>{pixDict.data.owner.type === 'LEGAL_PERSON' ? 'CNPJ' : 'CPF'}: {formatDict(pixDict.data.owner.taxIdNumber, pixDict.data.owner.type === 'LEGAL_PERSON' ? 'cnpj' : 'cpf')}</Text>
+          <Text style={styles.infoText}>Chave {pixDict.data.key}</Text>
+          <CurrencyInput
+            style={styles.input}
+            value={text}
+            onChangeValue={setText}
+            prefix="R$  "
+            delimiter="."
+            separator=","
+            precision={2}
+          />
         </View>
-        <Button style={styles.button} onPress={() => {setModalVisible(true)}} title="Pagar" />
+        <Button style={styles.button} onPress={() => {setModalVisible(true)}} title="Enviar" />
       </View>
     );
   }
@@ -172,10 +125,22 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   infoText: {
-    padding: 14,
+    paddingVertical: 8,
+  },
+  infoTitle: {
+    fontSize: 22,
+  },
+  infoOwner: {
+    fontSize: 18,
   },
   button: {
     // alignSelf: 'baseline'
+  },
+  input: {
+    marginVertical: 40,
+    borderColor: '#999',
+    borderBottomWidth: 1,
+    fontSize: 20,
   },
   containerModal: {
     backgroundColor: '#fff',
@@ -184,3 +149,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default PixPaymentReview;

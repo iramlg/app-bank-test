@@ -8,7 +8,7 @@ import { DashboardContext } from '../../../Context/Main';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 
-export default function SignUp() {
+const SignUp = () => {
   const { addAccount, addAccountStatus, getAccountStatus, cleanUp, payload, setPayload } = useContext(DashboardContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [documentNumber, seDocumentNumber] = useState('');
@@ -67,3 +67,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default SignUp;

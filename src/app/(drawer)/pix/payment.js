@@ -10,7 +10,7 @@ import * as Clipboard from 'expo-clipboard';
 
 const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
-export default function PaymentPix() {
+const PaymentPix = () => {
   const router = useRouter();
   const [code, setCode] = useState('');
   const [type, setType] = useState('');
@@ -80,3 +80,5 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   }
 });
+
+export default PaymentPix;

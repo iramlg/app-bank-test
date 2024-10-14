@@ -9,7 +9,7 @@ import { DashboardContext } from '../../../Context/Main';
 import CardItem from '../../../components/CardItem';
 import ButtonLink from '../../../components/ButtonLink';
 
-export default function SignCard() {
+const SignCard = () => {
   const { info } = useContext(DashboardContext);
   const [modalVisible, setModalVisible] = useState(false)
 
@@ -85,3 +85,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default SignCard;

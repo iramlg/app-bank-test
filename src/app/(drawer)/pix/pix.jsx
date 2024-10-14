@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Link } from 'expo-router';
 import CardItem from '../../../components/CardItem';
 
-export default function PixHome() {
+const PixHome = () => {
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: 'row', gap: 8 }} >
@@ -23,3 +23,5 @@ const styles = StyleSheet.create({
     padding: 5,
   },
 });
+
+export default PixHome;

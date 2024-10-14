@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Link, useNavigation, useRouter } from "expo-router";
 import { DashboardContext } from '../../Context/Main';
 
-export default function Logout() {
+const Logout = () => {
   const { setLoginInfo } = useContext(DashboardContext);
   const router = useRouter();
   
@@ -32,3 +32,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default Logout;

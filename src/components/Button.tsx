@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
-export default function ButtonComponent(props) {
+const ButtonComponent = (props) => {
     if (props.disabled) {
         return (
             <Disabled {...props}>
@@ -39,3 +39,5 @@ const Text = styled.Text`
     color: #FFF;
     font-weight: 600;
 `;
+
+export default ButtonComponent;

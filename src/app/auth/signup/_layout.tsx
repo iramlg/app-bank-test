@@ -2,7 +2,7 @@ import React from 'react';
 import { Stack } from "expo-router";
 import { DashboardProvider } from '../../../Context/Main';
 
-export default function Layout() {
+const Layout = () => {
     return (
         <DashboardProvider>
             <Stack screenOptions={{ headerShadowVisible: false, headerShown: false, contentStyle: { backgroundColor: '#FFF' } }}> 
@@ -13,4 +13,5 @@ export default function Layout() {
         </DashboardProvider>
     )
 }
-//
+
+export default Layout;

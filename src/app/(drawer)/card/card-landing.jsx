@@ -7,7 +7,7 @@ import { useIsFocused } from '@react-navigation/native'
 import CardItem from '../../../components/CardItem';
 import ButtonLink from '../../../components/ButtonLink';
 
-export default function LandingCard() {
+const LandingCard = () => {
   const isFocused = useIsFocused()
 
   if (!isFocused) {
@@ -17,7 +17,7 @@ export default function LandingCard() {
   // https://nupaybusiness.com.br/static/docs/Termos_de_Uso.pdf?id=com.daki&referrer=adjust_reftag%3DcGQL6HWTpHJJl%26utm_source%3DCityads%26utm_campaign%3D28fB
   return (
     <View style={styles.container}>
-      <Text>Peça agora mesmo seu cartão Bank</Text>
+      <Text>Peça agora mesmo seu cartão Banks</Text>
       <LottieView
         autoPlay
         loop={false}
@@ -46,3 +46,5 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 });
+
+export default LandingCard;

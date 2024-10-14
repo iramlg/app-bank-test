@@ -8,7 +8,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { DashboardContext } from '../../../Context/Main';
 import ButtonLink from '../../../components/ButtonLink';
 
-export default function MyKeys() {
+const MyKeys = () => {
   const { pixKeys, setPixKeys, getPixKeys } = useContext(DashboardContext);
 
   useEffect(() => {
@@ -60,3 +60,5 @@ const KeysList = styled.View`
     border: 0 solid #DDD;
     borderBottomWidth: 1;
 `;
+
+export default MyKeys;

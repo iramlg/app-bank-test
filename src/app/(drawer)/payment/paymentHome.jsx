@@ -5,7 +5,7 @@ import { useRouter } from 'expo-router';
 import Input from '../../../components/Input';
 import * as Clipboard from 'expo-clipboard';
 
-export default function PaymentHome() {
+const PaymentHome = () => {
   const router = useRouter();
   const [barCode, setBarCode] = useState('');
 
@@ -51,3 +51,5 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   }
 });
+
+export default PaymentHome;

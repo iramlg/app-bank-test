@@ -5,7 +5,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Link } from 'expo-router';
 
-export default function Statement() {
+const Shortcuts = () => {
     const data = [
         {
             icon: "pix",
@@ -16,17 +16,17 @@ export default function Statement() {
         {
             icon: "barcode",
             title: "Pagamento",
-            href: '/payment'
+            href: '/payment/paymentHome'
         },
         {
             icon: "wallet",
             title: "Pix",
-            href: '/pix'
+            href: '/pix/pix'
         },
         {
             icon: "wallet",
             title: "Cartão",
-            href: '/card'
+            href: '/card/card'
         }
     ];
 
@@ -35,7 +35,7 @@ export default function Statement() {
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ height: 110, width: '100%' }}>
                 {data.map((item) => {
                     return (
-                        <Link href={item.href}>
+                        <Link push href={item.href}>
                             <Box>
                                 {item.materialIcon ? 
                                 <MaterialIcons name={item.icon} size={24} color="black" />
@@ -71,3 +71,5 @@ const Text = styled.Text`
     font-size: 16px;
     color: #000;
 `;
+
+export default Shortcuts;

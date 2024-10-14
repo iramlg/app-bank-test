@@ -4,8 +4,9 @@ import { Stack } from "expo-router";
 import { Link, useNavigation, useRouter } from "expo-router";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
-export default function Layout() {
+const Layout = () => {
     const navigation = useNavigation();
+    const router = useRouter();
 
     return (
         <Stack screenOptions={{ headerShadowVisible: false, contentStyle: { backgroundColor: '#FFF' } }}> 
@@ -74,6 +75,20 @@ export default function Layout() {
                     />
                   ),
             }} />
+            <Stack.Screen name="card-digital" options={{
+                title: "Cartão Digital",
+                headerLeft: () => (
+                    <Button
+                      onPress={() => {
+                        navigation.navigate('dashboard');
+                      }}
+                      title="<"
+                      color="#000"
+                    />
+                  ),
+            }} />
         </Stack>
     )
 }
+
+export default Layout;

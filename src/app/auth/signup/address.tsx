@@ -9,7 +9,7 @@ import { getCEPAddress } from '../../../Services/Main';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 
-export default function SignUp() {
+const SignUpAddress = () => {
   const { addAccount, addAccountStatus, getAccountStatus, cleanUp, payload, setPayload } = useContext(DashboardContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [addressInfo, setAddressInfo] = useState({
@@ -132,3 +132,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default SignUpAddress;

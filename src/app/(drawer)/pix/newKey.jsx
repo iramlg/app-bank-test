@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { Link, useNavigation, useRouter } from "expo-router";
 import { DashboardContext } from '../../../Context/Main';
 
-export default function NewKey() {
+const NewKey = () => {
   const router = useRouter();
   const { addPixelKey, getPixKeys } = useContext(DashboardContext);
   const [text, setText] = useState('');
@@ -72,3 +72,5 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
   },
 });
+
+export default NewKey;

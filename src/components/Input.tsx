@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import MaskInput from 'react-native-mask-input'
 
-export default function ButtonComponent(props) {
+const InputComponent = (props) => {
     return (
         <MaskInput style={[styles.input, props.style]} {...props} />
     );
@@ -19,3 +19,5 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
 });
+
+export default InputComponent;

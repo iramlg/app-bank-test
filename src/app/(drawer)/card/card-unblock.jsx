@@ -9,7 +9,7 @@ import { DashboardContext } from '../../../Context/Main';
 import CardItem from '../../../components/CardItem';
 import ButtonLink from '../../../components/ButtonLink';
 
-export default function UnblockCard() {
+const UnblockCard = () => {
   const { info } = useContext(DashboardContext);
   const [otp, setOtp] = useState(['', '', '', '']);
   const [modalVisible, setModalVisible] = useState(false)
@@ -63,7 +63,7 @@ export default function UnblockCard() {
           </Pressable>
       </Modal>
       <View>
-        <Text>Enviaremos seu novo cartão ao endereço cadastrado</Text>
+        <Text>Enviaremos seu novo cartão ao endereço cadastrado.</Text>
         <View style={styles.boxContainer}>
           {otp.map((digit, index) => (
               <TextInput
@@ -127,3 +127,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+export default UnblockCard;

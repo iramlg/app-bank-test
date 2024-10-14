@@ -8,7 +8,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 dayjs.locale('pt-br')
 
-export default function Statement() {
+const Statement = () => {
     const data = [
         {
             "id": "aa99877c-6205-45ce-8fd8-18173fdd782a",
@@ -143,11 +143,11 @@ export default function Statement() {
     });
 
     return (
-        <View>
+        <View style={{ flex: 1 }}>
             <TitleView>
                 <Title>Extrato</Title>
             </TitleView>
-            <ScrollView style={{ height: '80%' }}>
+            <ScrollView style={{ flex: 1 }}>
                 {Object.keys(newData).map((keyItem) => {
                     return (
                         <View>
@@ -214,3 +214,5 @@ const TextCurrency = styled.Text`
     padding-top: 4px;
     color: #000;
 `;
+
+export default Statement;

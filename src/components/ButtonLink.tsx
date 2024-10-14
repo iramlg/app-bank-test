@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { Link } from 'expo-router';
 
-export default function ButtonLink(props) {
+const ButtonLink = (props) => {
     if (props.disabled) {
         return (
             <Disabled {...props}>
@@ -43,3 +43,5 @@ const Text = styled.Text`
     color: #FFF;
     font-weight: 600;
 `;
+
+export default ButtonLink;

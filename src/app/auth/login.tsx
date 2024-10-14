@@ -8,7 +8,7 @@ import MaskInput, { Masks } from 'react-native-mask-input';
 import { DashboardContext } from '../../Context/Main';
 import Button from '../../components/Button';
 
-export default function Login() {
+const Login = () => {
   const { login, loginInfo, cleanUp } = useContext(DashboardContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [text, setText] = useState('48926885097');
@@ -127,3 +127,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default Login;

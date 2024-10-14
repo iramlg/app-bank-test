@@ -7,7 +7,7 @@ import { WebView } from 'react-native-webview';
 import MaskInput, { Masks } from 'react-native-mask-input';
 import { DashboardContext } from '../../Context/Main';
 
-export default function SignUp() {
+const SignUp = () => {
   const { addAccount, addAccountStatus, getAccountStatus, cleanUp, createLocalProposal } = useContext(DashboardContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [payload, setPayload] = useState({
@@ -136,3 +136,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default SignUp;

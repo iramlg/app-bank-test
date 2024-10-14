@@ -11,7 +11,7 @@ justify-content: flex-start;
 align-self: stretch;
 `;
 
-export default function Layout() {
+const Layout = () => {
   const navigation = useNavigation();
 
   return (
@@ -66,15 +66,4 @@ export default function Layout() {
   );
 }
 
-// import { Stack } from "expo-router";
-// import { DashboardProvider } from '../../Context/Main';
-
-// export default function Layout() {
-//     return (
-//         <DashboardProvider>
-//             <Stack>
-//                 <Stack.Screen name="dashboard" options={{ headerShown: false }} />
-//             </Stack>
-//         </DashboardProvider>
-//     )
-// }
+export default Layout;

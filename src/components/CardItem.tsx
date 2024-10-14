@@ -2,7 +2,7 @@ import React from 'react';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import styled from 'styled-components/native';
 
-export default function CardItem(props) {
+const CardItem = (props) => {
     if (props.disabled) {
         return (
             <Disabled {...props}>
@@ -43,3 +43,5 @@ const Text = styled.Text`
     font-weight: 600;
     text-align: center;
 `;
+
+export default CardItem;

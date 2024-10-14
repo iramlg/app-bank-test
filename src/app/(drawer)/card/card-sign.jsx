@@ -7,7 +7,7 @@ import { useIsFocused } from '@react-navigation/native'
 import CardItem from '../../../components/CardItem';
 import ButtonLink from '../../../components/ButtonLink';
 
-export default function SignCard() {
+const SignCard = () => {
   const isFocused = useIsFocused()
 
   if (!isFocused) {
@@ -37,3 +37,5 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 });
+
+export default SignCard;
