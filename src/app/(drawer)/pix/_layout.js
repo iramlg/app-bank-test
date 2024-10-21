@@ -21,9 +21,9 @@ const Layout = () => {
                     />
                   ),
             }} />
-            <Stack.Screen name="myKeys" options={{ title: "Minhas Chaves" }} />
-            <Stack.Screen name="newKey" options={{ title: "Nova Chave" }} />
-            <Stack.Screen name="qrCode" options={{ title: "QR Code" }} />
+            <Stack.Screen name="myKeys" options={{ title: "Minhas Chaves", headerBackTitleVisible: false, }} />
+            <Stack.Screen name="newKey" options={{ title: "Nova Chave", headerBackTitleVisible: false, }} />
+            <Stack.Screen name="qrCode" options={{ title: "QR Code", headerBackTitleVisible: false, }} />
             <Stack.Screen name="payment" options={{
                 title: "Pix",
                 headerLeft: () => (
@@ -32,7 +32,7 @@ const Layout = () => {
                   </Link>
                 ),
             }} />
-            <Stack.Screen name="pixPaymentReview" options={{ title: "Pix" }} />
+            <Stack.Screen name="pixPaymentReview" options={{ title: "Pix", headerBackTitleVisible: false, }} />
         </Stack>
     )
 }
